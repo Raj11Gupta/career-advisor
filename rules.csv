@@ -1,8 +1,19 @@
 CareerID,SkillName
 DS01,Python
 DS01,SQL
+DS01,Machine Learning
+DS01,Data Visualization
 WD01,HTML
 WD01,CSS
 WD01,JavaScript
+WD01,React
 BA01,Excel
 BA01,SQL
+BA01,Tableau
+BA01,Communication
+UX01,Figma
+UX01,User Research
+UX01,Prototyping
+DM01,SEO
+DM01,Google Analytics
+DM01,Social Media Marketing

@@ -1,4 +1,6 @@
-CareerID,career_name,overview,entry_roles,avg_time_to_job_weeks
+CareerID,CareerName,Overview,EntryRoles,AvgTimeToJobWeeks
 DS01,Data Scientist,Analyze and interpret complex data,"Data Analyst, Junior Data Scientist",24
 WD01,Web Developer,Design and build websites and web apps,"Frontend Intern, Full-stack Intern",18
 BA01,Business Analyst,Bridge business needs with technology,"BA Intern, Junior Analyst",12
+UX01,UX/UI Designer,Create user-friendly and visually appealing digital products,"UI Design Intern, UX Researcher",20
+DM01,Digital Marketer,Promote brands online using SEO and social media,"Social Media Coordinator, SEO Intern",16
