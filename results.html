@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Career Recommendation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card result-card">
+        <div id="recommendation-view" style="display: none;">
+            <h1>Based on Your Skills, We Recommend:</h1>
+            <h2 id="rec-career-name"></h2>
+            <p><strong>Overview:</strong> <span id="rec-career-overview"></span></p>
+            <h3>Matching Skills:</h3>
+            <ul id="rec-matching-skills" class="skills-list"></ul>
+            <h3>Additional Skills for This Path:</h3>
+            <ul id="rec-additional-skills" class="skills-list"></ul>
+        </div>
+
+        <div id="gap-analysis-view" style="display: none;">
+            <h1>Your Path to Becoming a <span id="gap-career-name"></span></h1>
+            <h3>Skills You Have:</h3>
+            <ul id="gap-skills-have" class="skills-list"></ul>
+            <h3>Skills to Learn:</h3>
+            <ul id="gap-skills-learn" class="skills-list"></ul>
+            <h3>Other Paths Based on Your Skills:</h3>
+            <p id="gap-related-paths"></p>
+        </div>
+
+        <div id="error-view" style="display: none;">
+            <h1>Oops!</h1>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultData = JSON.parse(localStorage.getItem('careerResult'));
+            const careers = {
+                "DS01": "Data Scientist", "WD01": "Web Developer", "BA01": "Business Analyst",
+                "UX01": "UX/UI Designer", "DM01": "Digital Marketer"
+            };
+
+            if (!resultData) {
+                document.getElementById('error-view').style.display = 'block';
+                document.getElementById('error-message').textContent = 'No result data found.';
+                return;
+            }
+
+            if (resultData.userPath === 'recommend') {
+                // Display the recommendation view
+                document.getElementById('recommendation-view').style.display = 'block';
+                document.getElementById('rec-career-name').textContent = resultData.CareerName;
+                document.getElementById('rec-career-overview').textContent = resultData.Overview;
+                
+                // Note: The simple recommendation backend doesn't provide these skill lists.
+                // You could enhance the backend to return them in the future.
+                
+            } else if (resultData.userPath === 'gap') {
+                // Display the gap analysis view
+                document.getElementById('gap-analysis-view').style.display = 'block';
+                document.getElementById('gap-career-name').textContent = careers[resultData.chosenCareerId] || 'Selected Career';
+
+                const haveList = document.getElementById('gap-skills-have');
+                resultData.skillsYouHave.forEach(skill => {
+                    const li = document.createElement('li');
+                    li.className = 'have';
+                    li.textContent = `✅ ${skill}`;
+                    haveList.appendChild(li);
+                });
+
+                const learnList = document.getElementById('gap-skills-learn');
+                resultData.skillsToLearn.forEach(skill => {
+                    const li = document.createElement('li');
+                    li.className = 'learn';
+                    li.textContent = `🎯 ${skill}`;
+                    learnList.appendChild(li);
+                });
+
+                const relatedPaths = document.getElementById('gap-related-paths');
+                if (resultData.skillBasedPaths && resultData.skillBasedPaths[0]) {
+                    relatedPaths.textContent = `Your skills are also a strong match for: ${resultData.skillBasedPaths[0].CareerName}.`;
+                } else {
+                    relatedPaths.textContent = 'No other strong matches found based on your current skills.';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

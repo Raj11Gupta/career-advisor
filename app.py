@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import csv
 
-# 1. Initialize the Flask App
+# 1. Initialize the Flask App and apply CORS
 app = Flask(__name__)
+CORS(app)
 
 # --- LOGIC FOR SCENARIO B: CAREER RECOMMENDATION ---
 def find_career_from_csv(user_skill_names):
@@ -34,7 +36,7 @@ def find_career_from_csv(user_skill_names):
             
     return None
 
-# --- LOGIC FOR SCENARIO A: CAREER GAP ANALYSIS (NEWLY ADDED) ---
+# --- LOGIC FOR SCENARIO A: CAREER GAP ANALYSIS ---
 def perform_gap_analysis(chosen_career_id, user_skill_names):
     try:
         with open('rules.csv', mode='r', encoding='utf-8') as csv_file:
@@ -42,7 +44,6 @@ def perform_gap_analysis(chosen_career_id, user_skill_names):
     except FileNotFoundError:
         return {"error": "The rules.csv file was not found."}
 
-    # Find all skills required for the user's chosen career
     required_skills = []
     for rule in rules_data:
         if rule['CareerID'] == chosen_career_id:
@@ -51,11 +52,9 @@ def perform_gap_analysis(chosen_career_id, user_skill_names):
     if not required_skills:
         return {"error": f"Career ID '{chosen_career_id}' not found in rules.csv."}
         
-    # Compare lists to find what the user has and what they need to learn
     skills_you_have = list(set(required_skills) & set(user_skill_names))
     skills_to_learn = list(set(required_skills) - set(user_skill_names))
     
-    # Reuse our other function to find career paths based on the user's current skills
     skill_based_recommendation = find_career_from_csv(user_skill_names)
     
     return {
@@ -67,7 +66,7 @@ def perform_gap_analysis(chosen_career_id, user_skill_names):
 
 # --- API ENDPOINTS ---
 
-# Endpoint for Scenario B (Suggest a career) - NO CHANGES
+# Endpoint for Scenario B (Suggest a career)
 @app.route('/recommend', methods=['POST'])
 def recommend():
     data = request.get_json()
@@ -86,7 +85,7 @@ def recommend():
     else:
         return jsonify({"error": "Could not find a matching career"}), 404
 
-# Endpoint for Scenario A (Gap analysis) - NEWLY ADDED
+# Endpoint for Scenario A (Gap analysis)
 @app.route('/gap-analysis', methods=['POST'])
 def gap_analysis_endpoint():
     data = request.get_json()

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Skills</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <h1 id="page-title">Loading...</h1>
+        <form id="skill-form">
+            <div id="career-dropdown-container" style="display: none;">
+                <label for="career-select">Choose a career:</label>
+                <select name="career" id="career-select">
+                    <option value="DS01">Data Scientist</option>
+                    <option value="WD01">Web Developer</option>
+                    <option value="BA01">Business Analyst</option>
+                    <option value="UX01">UX/UI Designer</option>
+                    <option value="DM01">Digital Marketer</option>
+                </select>
+            </div>
+            
+            <h3>Select the skills you have:</h3>
+            <div class="skills-container">
+                <label><input type="checkbox" name="skill" value="Python"> Python</label>
+                <label><input type="checkbox" name="skill" value="SQL"> SQL</label>
+                <label><input type="checkbox" name="skill" value="Machine Learning"> Machine Learning</label>
+                <label><input type="checkbox" name="skill" value="Data Visualization"> Data Visualization</label>
+                <label><input type="checkbox" name="skill" value="HTML"> HTML</label>
+                <label><input type="checkbox" name="skill" value="CSS"> CSS</label>
+                <label><input type="checkbox" name="skill" value="JavaScript"> JavaScript</label>
+                <label><input type="checkbox" name="skill" value="React"> React</label>
+                <label><input type="checkbox" name="skill" value="Excel"> Excel</label>
+                <label><input type="checkbox" name="skill" value="Tableau"> Tableau</label>
+                <label><input type="checkbox" name="skill" value="Communication"> Communication</label>
+                <label><input type="checkbox" name="skill" value="Figma"> Figma</label>
+                <label><input type="checkbox" name="skill" value="User Research"> User Research</label>
+                <label><input type="checkbox" name="skill" value="Prototyping"> Prototyping</label>
+                <label><input type="checkbox" name="skill" value="SEO"> SEO</label>
+                <label><input type="checkbox" name="skill" value="Google Analytics"> Google Analytics</label>
+                <label><input type="checkbox" name="skill" value="Social Media Marketing"> Social Media Marketing</label>
+            </div>
+            <button type="submit">Analyze My Skills</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
